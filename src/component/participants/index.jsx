@@ -8,7 +8,7 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import AddIcon from "@mui/icons-material/Add";
-import { CardActions } from "@mui/material";
+import { CardActions, colors } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -20,98 +20,117 @@ import Divider from "@mui/material/Divider";
 
 function Participants() {
   // Manage an array of participant names
-  const [participantsName, setParticipantsName] = useState("");
-  const [participantsList, setParticipantsList] = useState([]);
+  const [participantName, setParticipantName] = useState("");
+  const [participantList, setParticipantList] = useState([]);
   const [randomPerson, setRandomPerson] = useState("");
 
   function handleOnChange(event) {
     const { value } = event.target;
-    setParticipantsName(value); // Update the input value
+    setParticipantName(value); // Update the input value
   }
 
   function handleOnSubmit(event) {
     event.preventDefault();
-    if (participantsName.trim() !== "") {
+    if (participantName.trim() !== "") {
       // Add the participant to the list
-      setParticipantsList([...participantsList, participantsName]);
+      setParticipantList([...participantList, participantName]);
       // Clear the input field
-      setParticipantsName("");
+      setParticipantName("");
     }
   }
 
-  function handleOnClick() {
-    const randomIndex = Math.floor(Math.random() * participantsList.length);
-    setRandomPerson(participantsList[randomIndex]);
+  function handleOnSelectRandomClick() {
+    const randomIndex = Math.floor(Math.random() * participantList.length);
+    setRandomPerson(participantList[randomIndex]);
   }
 
   function handleOnEdit(participant) {
     console.log("edited");
-    setParticipantsName(participant);
-    const updatedValue = participantsList.filter(
+    setParticipantName(participant);
+    const updatedValue = participantList.filter(
       (currentParticipant) => currentParticipant !== participant
     );
-    setParticipantsList(updatedValue);
+    setParticipantList(updatedValue);
   }
 
   function handleOnDelete(participant) {
     console.log("Deleted");
 
     // Use filter to create a new array without the deleted participant
-    const updatedList = participantsList.filter(
+    const updatedList = participantList.filter(
       (currentParticipant) => currentParticipant !== participant
     );
 
     // Update the state with the new array
-    setParticipantsList(updatedList);
+    setParticipantList(updatedList);
   }
-  const style = {
-    py: 0,
-    width: "100%",
-    borderRadius: 2,
-    border: "1px solid",
-    borderColor: "divider",
-    backgroundColor: "background.paper",
-  };
+
   return (
     <>
       <Box sx={{ minWidth: 275 }}>
-        <Card variant="outlined" className={Styles.cardStyling}>
-          <CardContent>
-            <Typography variant="p" className={Styles.title}>
-              Enter Participants Name
+        <CardContent>
+          <Box sx={{ backgroundColor: "#789DBC" }} className={Styles.container}>
+            <Typography
+              sx={{ marginTop: "30px", marginBottom: "10px" }}
+              variant="p"
+              className={Styles.headingText}
+            >
+              Enter Participant Name
             </Typography>
             <Stack direction="column" spacing={2}>
               <TextField
-                id="standard-basic"
-                label="Name"
-                variant="standard"
+                id="filled-basic"
+                variant="filled"
+                sx={{
+                  border: "none",
+                  backgroundColor: "white",
+                  borderRadius: "5px",
+                }}
+                style={{ marginTop: "30px" }}
                 type="text"
                 name="name"
                 placeholder="Enter Participant's Name"
-                value={participantsName} // Set input value from state
+                value={participantName} // Set input value from state
                 onChange={handleOnChange}
               />
+
               <CardActions>
-                {participantsName?.length === 0 ? (
-                  <Button variant="contained" startIcon={<AddIcon />} disabled>
-                    Add Participants
+                {participantName?.length === 0 ? (
+                  <Button
+                    sx={{
+                      borderRadius: "15px",
+                      fontWeight: "bold",
+                    }}
+                    variant="outlined"
+                    startIcon={<AddIcon />}
+                    disabled
+                  >
+                    Add Participant
                   </Button>
                 ) : (
                   <Button
+                    sx={{
+                      borderRadius: "15px",
+                      fontWeight: "bold",
+                      backgroundColor: "#024caa",
+                    }}
                     variant="contained"
                     startIcon={<AddIcon />}
                     onClick={handleOnSubmit}
                   >
-                    Add Participants
+                    Add Participant
                   </Button>
                 )}
               </CardActions>
             </Stack>
-          </CardContent>
-        </Card>
-        <Card variant="outlined" className={Styles.cardStyling}>
-          <CardContent>
-            <Typography variant="h4">Participants Are:</Typography>
+          </Box>
+        </CardContent>
+
+        <CardContent>
+          <Box sx={{ backgroundColor: "#789DBC" }} className={Styles.container}>
+            <Typography variant="p" className={Styles.headingText}>
+              Participants Are:
+            </Typography>
 
             {/* Scrollable List */}
             <List
@@ -133,37 +152,76 @@ function Participants() {
                 },
               }}
             >
-              {participantsList.length > 0 ? (
-                participantsList.map((participant, index) => (
+              {participantList.length > 0 ? (
+                participantList.map((participant, index) => (
                   <div key={index}>
                     <ListItem>
-                      <ListItemText primary={participant}></ListItemText>
-                      <Button
-                        variant="outlined"
-                        style={{ margin: 10 }}
-                        startIcon={<EditIcon />}
-                        onClick={() => handleOnEdit(participant)}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        style={{ margin: 10 }}
-                        startIcon={<DeleteIcon />}
-                        onClick={() => handleOnDelete(participant)}
-                      >
-                        Delete
-                      </Button>
+                      <ListItemText>
+                        {/* Use Flexbox for name and buttons */}
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "100%",
+                          }}
+                        >
+                          {/* Name takes remaining space */}
+                          <Typography
+                            variant="p"
+                            className={Styles.namesText}
+                            style={{ flex: 1, marginRight: "10px" }} // Name gets flex space and margin
+                          >
+                            {participant}
+                          </Typography>
+
+                          {/* Buttons */}
+                          <div style={{ display: "flex", gap: "10px" }}>
+                            <Button
+                              sx={{
+                                borderRadius: "15px",
+                                fontWeight: "bold",
+                                backgroundColor: "white",
+                                color: "#024caa",
+                              }}
+                              variant="outlined"
+                              style={{ margin: 10, maxWidth: 80 }} // Reduced maxWidth for better responsiveness
+                              startIcon={<EditIcon />}
+                              onClick={() => handleOnEdit(participant)}
+                            >
+                              Edit
+                            </Button>
+                            <Button
+                              sx={{
+                                borderRadius: "15px",
+                                fontWeight: "bold",
+                                backgroundColor: "white",
+                                color: "#c41e3a",
+                              }}
+                              variant="outlined"
+                              style={{ margin: 10, maxWidth: 100 }} // Reduced maxWidth for better responsiveness
+                              startIcon={<DeleteIcon />}
+                              onClick={() => handleOnDelete(participant)}
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </div>
+                      </ListItemText>
                     </ListItem>
                     <Divider />
                   </div>
                 ))
               ) : (
                 <Typography
-                  variant="h4"
+                  variant="p"
+                  className={Styles.headingText}
                   sx={{
-                    display: "flex",
-                    justifyContent: "center",
+                    position: "absolute",
+                    top: "50%",
+                    right: "15%",
+                    left: "10%",
                   }}
                 >
                   No participants added yet
@@ -172,30 +230,41 @@ function Participants() {
             </List>
 
             {/* Shuffle Button at the Bottom */}
-            {participantsList.length > 1 && (
+            {participantList.length > 1 && (
               <Button
+                sx={{
+                  borderRadius: "15px",
+                  fontWeight: "bold",
+                  backgroundColor: "white",
+                  color: "#c41e3a",
+                }}
                 variant="outlined"
                 startIcon={<ShuffleIcon />}
-                onClick={handleOnClick}
+                onClick={handleOnSelectRandomClick}
               >
                 Select a Person
               </Button>
             )}
-          </CardContent>
-        </Card>
+          </Box>
+        </CardContent>
 
-        <Card variant="outlined" className={Styles.cardStyling}>
-          <CardContent>
+        <CardContent>
+          <Box sx={{ backgroundColor: "#789DBC" }} className={Styles.container}>
             {randomPerson.length > 0 ? (
-              <Typography variant="p">
-                It's Your Turn <strong>{randomPerson}</strong>, Select Truth or
-                Dare
+              <Typography variant="p" className={Styles.headingText}>
+                It's Your Turn{" "}
+                <span style={{ color: "#c41e3a" }}>
+                  <strong>{randomPerson.toUpperCase()}</strong>
+                </span>
+                , Select Truth or Dare
               </Typography>
             ) : (
-              <Typography variant="p">Select a Person First</Typography>
+              <Typography variant="p" className={Styles.headingText}>
+                Select a Person First
+              </Typography>
             )}
-          </CardContent>
-        </Card>
+          </Box>
+        </CardContent>
       </Box>
     </>
   );

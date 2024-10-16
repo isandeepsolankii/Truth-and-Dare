@@ -1,5 +1,5 @@
 import Styles from "./styles.module.css";
-import { Typography } from "@mui/material";
+import { colors, Typography } from "@mui/material";
 import { Fragment } from "react";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid2";
@@ -23,7 +23,8 @@ function TruthAndDare() {
   return (
     <Fragment>
       <Typography variant="h1" className={Styles.title}>
-        Truth or Dare
+        <span style={{ color: "#024caa" }}>Truth</span> or{" "}
+        <span style={{ color: "#c41e3a" }}>Dare</span>
       </Typography>
       <Box sx={{ width: "100%" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 5 }}>

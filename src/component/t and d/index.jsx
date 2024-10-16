@@ -1,21 +1,24 @@
-import { Box, Card, CardContent } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 import DareQuestions from "./dare";
 import TruthQuestions from "./truth";
+import Styles from "./styles.module.css";
 
 function Questions() {
   return (
     <Box>
-      <h3>Truth and dare Questions</h3>
-      <Card>
-        <CardContent>
-          <TruthQuestions />
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent>
-          <DareQuestions />
-        </CardContent>
-      </Card>
+      <Typography
+        sx={{ marginTop: "30px", marginBottom: "10px" }}
+        variant="h4"
+        className={Styles.heading}
+      >
+        Truth and Dare Questions
+      </Typography>
+      <CardContent>
+        <TruthQuestions />
+      </CardContent>
+      <CardContent>
+        <DareQuestions />
+      </CardContent>
     </Box>
   );
 }

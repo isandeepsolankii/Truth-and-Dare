@@ -25,7 +25,7 @@ button {
 /* Typography */
 .title {
   font-size: 3rem;
-  color: #ff4081;
+  color: black;
   text-align: center;
   margin-bottom: 20px;
   text-transform: uppercase;
@@ -40,20 +40,6 @@ button {
 
 .cardStyling h4 {
   margin-bottom: 10px;
-}
-
-button {
-  background-color: #ff4081;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #d93670;
 }
 
 button:disabled {
