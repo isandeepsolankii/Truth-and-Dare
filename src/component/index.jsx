@@ -22,8 +22,12 @@ const Item = styled(Paper)(({ theme }) => ({
 function TruthAndDare() {
   return (
     <Fragment>
-      <Typography variant="h1" className={Styles.title}>
-        <span style={{ color: "#024caa" }}>Truth</span> or{" "}
+      <Typography
+        sx={{ wordSpacing: "30px" }}
+        variant="p"
+        className={Styles.title}
+      >
+        <span style={{ color: "#024caa" }}>Truth</span> &nbsp;or&nbsp;{" "}
         <span style={{ color: "#c41e3a" }}>Dare</span>
       </Typography>
       <Box sx={{ width: "100%" }}>

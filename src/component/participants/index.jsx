@@ -186,12 +186,10 @@ function Participants() {
                                 color: "#024caa",
                               }}
                               variant="outlined"
-                              style={{ margin: 10, maxWidth: 80 }} // Reduced maxWidth for better responsiveness
+                              style={{ margin: 10 }} // Reduced maxWidth for better responsiveness
                               startIcon={<EditIcon />}
                               onClick={() => handleOnEdit(participant)}
-                            >
-                              Edit
-                            </Button>
+                            ></Button>
                             <Button
                               sx={{
                                 borderRadius: "15px",
@@ -200,12 +198,10 @@ function Participants() {
                                 color: "#c41e3a",
                               }}
                               variant="outlined"
-                              style={{ margin: 10, maxWidth: 100 }} // Reduced maxWidth for better responsiveness
+                              style={{ margin: 10 }} // Reduced maxWidth for better responsiveness
                               startIcon={<DeleteIcon />}
                               onClick={() => handleOnDelete(participant)}
-                            >
-                              Delete
-                            </Button>
+                            ></Button>
                           </div>
                         </div>
                       </ListItemText>
